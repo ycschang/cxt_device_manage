@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.mapper.CustomerMapper">
+
+	<!--多条件检索设备状况信息 -->
+	<!-- <select id="findDeviceMsg" parameterType="String" resultType="java.util.LinkedHashMap">
+		SELECT * from device
+		<where>
+			<if test="device_card != null and device_card != ''">
+				and device_card LIKE concat('%',#{device_card},'%')
+				device_card = #{device_card,jdbcType=VARCHAR}
+			</if>
+		</where>
+		group by create_date desc,id asc;
+	</select> -->
+
+	<!-- 添加客户 -->
+	<insert id="insertCustomer" parameterType="Customer">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into device
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="customer_name != null and customer_name != ''">
+				customer_name,
+			</if>
+			<if test="customer_card != null and customer_card !=''">
+				customer_card,
+			</if>
+			<if test="create_date == null || create_date == ''">
+				create_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="customer_name != null and device_card != ''">
+				#{customer_name,jdbcType=VARCHAR},
+			</if>
+			<if test="customer_card != null and customer_card != ''">
+				#{create_date,jdbcType=VARCHAR},
+			</if>
+			<if test="create_date == null || create_date == ''">
+				now(),
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 删除设备 -->
+	<!-- <delete id="delDevice" parameterType="String">
+		DELETE FROM device where
+		device_card = #{device_card}
+	</delete> -->
+	
+	<!--修改设备信息
+	  <update id="updateDevice" parameterType="Device">
+		UPDATE device
+		<set>
+			<if test="id != null and id !=''">
+				id = #{id,jdbcType=Integer},
+			</if>
+			<if test="whereabouts != null and whereabouts != ''">
+				whereabouts = #{whereabouts,jdbcType=VARCHAR},
+			</if>
+			<if test="cheack_out != null and id != ''">
+				cheack_out = #{cheack_out,jdbcType=VARCHAR},
+			</if>
+			<if test="create_date == null || create_date == ''">
+				create_date = now(),
+			</if>
+			<if test="remark != null and remark != ''">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="device_name != null and device_name != ''">
+				device_name = #{device_name,jdbcType=VARCHAR},
+			</if>
+			<if test="device_status != null and device_status != ''">
+				device_status = #{device_status,jdbcType=VARCHAR},
+			</if>
+			<if test="device_type != null and device_type != ''">
+				device_type = #{device_type,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where device_card = #{device_card,jdbcType=VARCHAR}
+	</update> -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

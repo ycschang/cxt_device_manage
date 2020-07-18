@@ -1,0 +1,12 @@
+/*input框的宽度*/
+.layui-input-block {
+	max-width: 200px;
+}
+/*input与顶部的间隔*/
+.layui-form-item {
+	margin-top: 10px;
+}
+/*readOnly状态下的输入框时灰色 */
+input[readOnly='true']{
+	background-color:#f2f2f2;color: #596953
+}

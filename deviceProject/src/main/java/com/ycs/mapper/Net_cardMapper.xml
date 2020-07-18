@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ycs.mapper.Net_cardMapper">
+	<!--检索物联网卡id -->
+	<select id="selectNetCard" parameterType="String" resultType="java.util.LinkedHashMap">
+		SELECT id from net_card where net_card=#{net_card}
+	</select>
+	
+	<!--多条件检索物联网状况信息 -->
+	<select id="findNet_CardMsg" parameterType="String" resultType="java.util.LinkedHashMap">
+		SELECT nc.id, nc.net_card,d.device_name,dc.card_status,dc.create_date from device d,net_card nc, d_c_card dc WHERE d.device_card = dc.device_card and nc.net_card = dc.net_card
+		<where>
+			<if test="net_card != null and net_card != ''">
+				and nc.net_card LIKE concat('%',#{net_card},'%')
+				<!-- device_card = #{device_card,jdbcType=VARCHAR} -->
+			</if>
+		</where>
+		group by create_date desc,id asc;
+	</select>
+</mapper>
